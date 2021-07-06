@@ -6,6 +6,7 @@ import by.epamtc.iovchuk.bean.airplane.transport.TransportAirplane;
 import by.epamtc.iovchuk.exception.NullException;
 
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -22,9 +23,7 @@ public class Airline {
      * @return true if the passenger airplane added to a set
      * @throws NullException if the passenger airplane is null
      */
-    public boolean addAirplane(PassengerAirplane passengerAirplane)
-            throws NullException {
-
+    public boolean addAirplane(PassengerAirplane passengerAirplane) throws NullException {
         nullCheck(passengerAirplane);
         return passengerAirplanes.add(passengerAirplane);
     }
@@ -32,9 +31,7 @@ public class Airline {
     /**
      * A version of addAirplane used to add a transport airplane to a set.
      */
-    public boolean addAirplane(TransportAirplane transportAirplane)
-            throws NullException {
-
+    public boolean addAirplane(TransportAirplane transportAirplane) throws NullException {
         nullCheck(transportAirplane);
         return transportAirplanes.add(transportAirplane);
     }
@@ -66,17 +63,56 @@ public class Airline {
     }
 
     /**
-     * Returns an iterator over the passenger airplane set.
+     * Calculate the total passenger capacity of all passenger aircraft.
+     *
+     * @return total passenger capacity
      */
-    public Iterator<PassengerAirplane> passengerAirplaneIterator() {
+    public int calculateTotalCapacity() {
+        int totalPassengerCapacity = 0;
+
+        for (PassengerAirplane airplane : passengerAirplanes) {
+            totalPassengerCapacity += airplane.getPassengerCapacity();
+        }
+
+        return totalPassengerCapacity;
+    }
+
+    /**
+     * Calculate the total lifting capacity of all transport aircraft.
+     *
+     * @return total lifting capacity
+     */
+    public double calculateTotalLiftingCapacity() {
+        double totalLiftingCapacity = 0;
+
+        for (TransportAirplane airplane : transportAirplanes) {
+            totalLiftingCapacity += airplane.getMaxLiftingCapacity();
+        }
+
+        return totalLiftingCapacity;
+    }
+
+    /**
+     * Returns an iterator over the passenger airplanes set.
+     */
+    public Iterator<PassengerAirplane> passengerAirplanesIterator() {
         return passengerAirplanes.iterator();
     }
 
     /**
-     * Returns an iterator over the transport airplane set.
+     * Returns an iterator over the transport airplanes set.
      */
-    public Iterator<TransportAirplane> transportAirplaneIterator() {
+    public Iterator<TransportAirplane> transportAirplanesIterator() {
         return transportAirplanes.iterator();
+    }
+
+    /**
+     * Returns an iterator over all airplanes set.
+     */
+    public Iterator<Airplane> allAirplanesIterator() {
+        Set<Airplane> allAirplanes = new HashSet<>(passengerAirplanes);
+        allAirplanes.addAll(transportAirplanes);
+        return  allAirplanes.iterator();
     }
 
     /**
