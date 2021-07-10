@@ -2,32 +2,24 @@ package by.epamtc.iovchuk.bean.airplane.passenger;
 
 import by.epamtc.iovchuk.bean.airplane.Airplane;
 
-import java.util.EnumSet;
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
-abstract public class PassengerAirplane extends Airplane {
+public class PassengerAirplane extends Airplane implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private final short passengerCapacity;
-    private final EnumSet<AirplaneClass> airplaneClasses;
+    private final List<AirplaneClass> airplaneClasses;
 
-    public PassengerAirplane(double length, double height, double wingSpan,
-                             double maxTakeoffWeight, double emptyWeight,
-                             double fuelCapacity, double fuelConsumption,
-                             short passengerCapacity, EnumSet<AirplaneClass> airplaneClasses) {
-
-        super(length, height, wingSpan, maxTakeoffWeight, emptyWeight, fuelCapacity,
-                fuelCapacity, fuelConsumption);
-        this.passengerCapacity = passengerCapacity;
-        this.airplaneClasses = airplaneClasses;
-    }
-
-    public PassengerAirplane(double length, double height, double wingSpan,
+    public PassengerAirplane(int id, double length, double height, double wingSpan,
                              double maxTakeoffWeight, double emptyWeight,
                              double fuelCapacity, double fuelConsumption,
                              double fuelWeight, short passengerCapacity,
-                             EnumSet<AirplaneClass> airplaneClasses) {
+                             List<AirplaneClass> airplaneClasses) {
 
-        super(length, height, wingSpan, maxTakeoffWeight, emptyWeight, fuelCapacity,
+        super(id, length, height, wingSpan, maxTakeoffWeight, emptyWeight, fuelCapacity,
                 fuelConsumption, fuelWeight);
         this.passengerCapacity = passengerCapacity;
         this.airplaneClasses = airplaneClasses;
@@ -37,7 +29,7 @@ abstract public class PassengerAirplane extends Airplane {
         return passengerCapacity;
     }
 
-    public EnumSet<AirplaneClass> getAirplaneClasses() {
+    public List<AirplaneClass> getAirplaneClasses() {
         return airplaneClasses;
     }
 

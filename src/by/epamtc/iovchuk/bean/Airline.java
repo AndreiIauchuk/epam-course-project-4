@@ -4,8 +4,7 @@ import by.epamtc.iovchuk.bean.airplane.Airplane;
 import by.epamtc.iovchuk.bean.airplane.passenger.PassengerAirplane;
 import by.epamtc.iovchuk.bean.airplane.transport.TransportAirplane;
 import by.epamtc.iovchuk.exception.NullException;
-import by.epamtc.iovchuk.service.sort.AirplaneSortService;
-
+import by.epamtc.iovchuk.service.sort.SortService;
 
 import java.util.*;
 
@@ -45,8 +44,9 @@ public class Airline {
         return airplanes.remove(airplane);
     }
 
-    public void sortAirplanes(Comparator<Airplane> comparator) {
-        new AirplaneSortService().quickSort(airplanes, comparator);
+    public void sortAirplanes(SortService<Airplane> sortService,
+                              Comparator<Airplane> comparator) {
+        sortService.sort(airplanes, comparator);
     }
 
     /**

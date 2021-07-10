@@ -2,18 +2,20 @@ package by.epamtc.iovchuk.bean.airplane;
 
 abstract public class Airplane {
 
-     private final double length;
-     private final double height;
-     private final double wingSpan;
-     private final double maxTakeoffWeight;
-     private final double emptyWeight;
-     private final double fuelCapacity;
-     private final double fuelConsumption;
+    private int id;
+    private final double length;
+    private final double height;
+    private final double wingSpan;
+    private final double maxTakeoffWeight;
+    private final double emptyWeight;
+    private final double fuelCapacity;
+    private final double fuelConsumption;
+    private double fuelWeight;
 
-     private double fuelWeight;
-
-    public Airplane(double length, double height, double wingSpan, double maxTakeoffWeight,
-                    double emptyWeight, double fuelCapacity, double fuelConsumption) {
+    public Airplane(int id, double length, double height, double wingSpan,
+                    double maxTakeoffWeight, double emptyWeight, double fuelCapacity,
+                    double fuelConsumption, double fuelWeight) {
+        this.id = id;
         this.length = length;
         this.height = height;
         this.wingSpan = wingSpan;
@@ -21,12 +23,15 @@ abstract public class Airplane {
         this.emptyWeight = emptyWeight;
         this.fuelCapacity = fuelCapacity;
         this.fuelConsumption = fuelConsumption;
+        this.fuelWeight = fuelWeight;
     }
 
-    public Airplane(double length, double height, double wingSpan, double maxTakeoffWeight,
-                    double emptyWeight, double fuelConsumption, double fuelCapacity, double fuelWeight) {
-        this(length, height, wingSpan, emptyWeight, fuelConsumption, fuelCapacity, maxTakeoffWeight);
-        this.fuelWeight = fuelWeight;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getLength() {
@@ -108,4 +113,6 @@ abstract public class Airplane {
                 ", fuelWeight=" + fuelWeight +
                 "}";
     }
+
+
 }

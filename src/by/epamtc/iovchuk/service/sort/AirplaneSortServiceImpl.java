@@ -8,9 +8,9 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
-public class AirplaneSortService {
+public class AirplaneSortServiceImpl implements SortService<Airplane> {
 
-    public void quickSort(List<Airplane> airplanes, Comparator<Airplane> comparator) {
+    public void sort(List<Airplane> airplanes, Comparator<Airplane> comparator) {
         if (checkNull(airplanes)
                 || checkBlank(airplanes)
                 || checkSingleElement(airplanes)) {
@@ -63,19 +63,17 @@ public class AirplaneSortService {
         airplanes.set(leftIndex, pivotValue);
 
         if (firstElementIndex < leftIndex) {
-            quickSort(airplanes, firstElementIndex, leftIndex - 1, comparator);
+            sort(airplanes, firstElementIndex, leftIndex - 1, comparator);
         }
 
         if (leftIndex < lastElementIndex) {
-            quickSort(airplanes, leftIndex + 1, lastElementIndex, comparator);
+            sort(airplanes, leftIndex + 1, lastElementIndex, comparator);
         }
 
     }
 
-    public void quickSort(List<Airplane> airplanes,
-                          int firstElementIndex,
-                          int lastElementIndex,
-                          Comparator<Airplane> comparator)
+    public void sort(List<Airplane> airplanes, int firstElementIndex,
+                     int lastElementIndex, Comparator<Airplane> comparator)
             throws OutOfBoundsException, FirstOverLastIndexException {
 
         if (checkNull(airplanes)
