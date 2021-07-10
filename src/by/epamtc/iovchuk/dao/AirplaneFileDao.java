@@ -13,12 +13,10 @@ import java.util.*;
 public class AirplaneFileDao implements Dao<Airplane> {
 
     private String filePath;
-    private File file;
     private Scanner scanner;
 
     public AirplaneFileDao(String filePath) {
         this.filePath = filePath;
-        file = new File(filePath);
     }
 
     @Override
@@ -28,6 +26,7 @@ public class AirplaneFileDao implements Dao<Airplane> {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         List<Airplane> airplanes = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String[] airplaneParams = readAirplaneParams();
@@ -54,6 +53,7 @@ public class AirplaneFileDao implements Dao<Airplane> {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         while (scanner.hasNextLine()) {
             String[] airplaneParams = readAirplaneParams();
             if (airplaneParams == null) {
@@ -138,14 +138,6 @@ public class AirplaneFileDao implements Dao<Airplane> {
     }
 
     public void setFilePath(String filePath) {
-        file = new File(filePath);
-
-        try {
-            scanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         this.filePath = filePath;
     }
 

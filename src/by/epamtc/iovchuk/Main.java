@@ -49,9 +49,10 @@ public class Main {
 
         printFindByDaoOneAirplane();
 
+        System.out.println("\n  СПИСОК САМОЛЕТОВ ДО СОРТИРОВКИ:");
         printAllAirplanes();
         sortAirplanes();
-        System.out.println("ОТСОРТИРОВАННЫЙ МАССИВ:");
+        System.out.println("\n  ОТСОРТИРОВАННЫЙ ПО ДЛИНЕ, ВЫСОТЕ И РАЗМАХУ КРЫЛА СПИСОК САМОЛЕТОВ:");
         printAllAirplanes();
     }
 
