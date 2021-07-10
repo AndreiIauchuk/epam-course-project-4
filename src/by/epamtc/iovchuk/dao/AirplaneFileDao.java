@@ -82,17 +82,19 @@ public class AirplaneFileDao implements Dao<Airplane> {
 
         if (airplaneType == 'P') {
             short passengerCapacity = Short.parseShort(airplaneParams[10].trim());
-            List<AirplaneClass> passengerAirplaneClasses =
+            Set<AirplaneClass> passengerAirplaneClasses =
                     readPassengerAirplaneClasses(airplaneParams[11].trim());
 
             return new PassengerAirplane(id, length, height, wingSpan, maxTakeoffWeight,
                     emptyWeight, fuelCapacity, fuelConsumption, fuelWeight,
                     passengerCapacity, passengerAirplaneClasses);
         } else {
-            int cargoWeight = Integer.parseInt(airplaneParams[10].trim());
+            double cargoWeight = Double.parseDouble(airplaneParams[10].trim());
+            double maxLiftingCapacity = Double.parseDouble(airplaneParams[11].trim());
 
             return new TransportAirplane(id, length, height, wingSpan, maxTakeoffWeight,
-                    emptyWeight, fuelCapacity, fuelConsumption, fuelWeight, cargoWeight);
+                    emptyWeight, fuelCapacity, fuelConsumption, fuelWeight, cargoWeight,
+                    maxLiftingCapacity);
         }
     }
 
@@ -104,12 +106,12 @@ public class AirplaneFileDao implements Dao<Airplane> {
         return airplaneParamLine.split(",");
     }
 
-    private List<AirplaneClass> readPassengerAirplaneClasses(String classesParamStr) {
+    private Set<AirplaneClass> readPassengerAirplaneClasses(String classesParamStr) {
         String substringClassesParamStr =
                 classesParamStr.substring(1, classesParamStr.length() - 1);
         String[] airplaneParams = substringClassesParamStr.split(" ");
 
-        List<AirplaneClass> airplaneClasses = new ArrayList<>();
+        Set<AirplaneClass> airplaneClasses = new HashSet<>();
         for (String param : airplaneParams) {
             switch (param.trim()) {
                 case "E":

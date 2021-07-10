@@ -19,9 +19,11 @@ public class AirlineTotalCapacityCalculator {
      */
     public int calculateTotalPassengerCapacity(Airline airline) {
         int totalPassengerCapacity = 0;
-        Iterator<PassengerAirplane> passengerAirplaneIterator = airline.passengerAirplanesIterator();
+        Iterator<PassengerAirplane> passengerAirplaneIterator =
+                airline.passengerAirplanesIterator();
         while (passengerAirplaneIterator.hasNext()) {
-            totalPassengerCapacity += passengerAirplaneIterator.next().getPassengerCapacity();
+            totalPassengerCapacity +=
+                    passengerAirplaneIterator.next().getPassengerCapacity();
         }
         return totalPassengerCapacity;
     }
@@ -34,9 +36,11 @@ public class AirlineTotalCapacityCalculator {
      */
     public double calculateTotalLiftingCapacity(Airline airline) {
         double totalLiftingCapacity = 0;
-        Iterator<TransportAirplane> transportAirplaneIterator = airline.transportAirplanesIterator();
+        Iterator<TransportAirplane> transportAirplaneIterator =
+                airline.transportAirplanesIterator();
         while (transportAirplaneIterator.hasNext()) {
-            totalLiftingCapacity += transportAirplaneIterator.next().getMaxLiftingCapacity();
+            totalLiftingCapacity +=
+                    transportAirplaneIterator.next().getMaxLiftingCapacity();
         }
         return totalLiftingCapacity;
     }

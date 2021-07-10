@@ -8,19 +8,21 @@ public class TransportAirplane extends Airplane implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private int cargoWeight;
+    private double cargoWeight;
+    private double maxLiftingCapacity;
 
     public TransportAirplane(int id, double length, double height, double wingSpan,
                              double maxTakeoffWeight, double emptyWeight,
                              double fuelCapacity, double fuelConsumption,
-                             double fuelWeight, int cargoWeight) {
+                             double fuelWeight, double cargoWeight, double maxLiftingCapacity) {
 
         super(id, length, height, wingSpan, maxTakeoffWeight, emptyWeight,
                 fuelCapacity, fuelConsumption, fuelWeight);
         this.cargoWeight = cargoWeight;
+        this.maxLiftingCapacity = maxLiftingCapacity;
     }
 
-    public int getCargoWeight() {
+    public double getCargoWeight() {
         return cargoWeight;
     }
 
@@ -28,13 +30,22 @@ public class TransportAirplane extends Airplane implements Serializable {
         this.cargoWeight = cargoWeight;
     }
 
+    public double getMaxLiftingCapacity() {
+        return maxLiftingCapacity;
+    }
+
+    public void setMaxLiftingCapacity(double maxLiftingCapacity) {
+        this.maxLiftingCapacity = maxLiftingCapacity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof TransportAirplane)) return false;
         if (!super.equals(o)) return false;
-        TransportAirplane that = (TransportAirplane) o;
-        return cargoWeight == that.cargoWeight;
+        TransportAirplane airplane = (TransportAirplane) o;
+        return Double.compare(airplane.cargoWeight, cargoWeight) == 0
+                && Double.compare(airplane.maxLiftingCapacity, maxLiftingCapacity) == 0;
     }
 
     @Override
@@ -42,13 +53,16 @@ public class TransportAirplane extends Airplane implements Serializable {
         double hash = 5;
         hash = 31 * hash + super.hashCode();
         hash = 31 * hash + cargoWeight;
+        hash = 31 * hash + maxLiftingCapacity;
         return (int) hash;
     }
 
     @Override
     public String toString() {
-        return getClass() +
-                "cargoWeight=" + cargoWeight +
+        return getClass().getSimpleName() + "{ " +
+                "id=" + getId() +
+                ", cargoWeight=" + cargoWeight +
+                ", maxLiftingCapacity=" + maxLiftingCapacity +
                 ", length=" + getLength() +
                 ", height=" + getHeight() +
                 ", wingSpan=" + getWingSpan() +

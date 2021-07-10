@@ -12,6 +12,10 @@ public class Airline {
 
     private final List<Airplane> airplanes;
 
+    public Airline() {
+        airplanes = new ArrayList<>();
+    }
+
     public Airline(List<Airplane> airplanes) {
         this.airplanes = airplanes;
     }
@@ -19,7 +23,7 @@ public class Airline {
     /**
      * Adds a given airplane to the list of airplanes.
      *
-     * @param airplane passenger airplane to be added
+     * @param airplane airplane to be added
      * @return true if the airplane added to a list
      * @throws NullException if the airplane is null
      */
@@ -28,6 +32,20 @@ public class Airline {
             throw new NullException();
         }
         return airplanes.add(airplane);
+    }
+
+    /**
+     * Adds a given airplanes to the list of airplanes.
+     *
+     * @param airplanes airplanes to be added
+     * @return true if the airplane added to a list
+     * @throws NullException if the airplane is null
+     */
+    public boolean addAirplanes(Collection<Airplane> airplanes) throws NullException {
+        if (checkNull(airplanes)) {
+            throw new NullException();
+        }
+        return this.airplanes.addAll(airplanes);
     }
 
     /**
@@ -85,8 +103,8 @@ public class Airline {
     /**
      * Checks if the given airplane is not null. If null throws NullException.
      */
-    private boolean checkNull(Airplane airplane) {
-        return (airplane == null);
+    private boolean checkNull(Object o) {
+        return (o == null);
     }
 
 }

@@ -75,7 +75,8 @@ abstract public class Airplane {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Airplane airplane = (Airplane) o;
-        return Double.compare(airplane.length, length) == 0 &&
+        return airplane.id == id &&
+                Double.compare(airplane.length, length) == 0 &&
                 Double.compare(airplane.height, height) == 0 &&
                 Double.compare(airplane.wingSpan, wingSpan) == 0 &&
                 Double.compare(airplane.maxTakeoffWeight, maxTakeoffWeight) == 0 &&
@@ -97,22 +98,9 @@ abstract public class Airplane {
             hash = 31 * hash + value;
         }
 
+        hash = 31 * hash + id;
+
         return (int) hash;
     }
-
-    @Override
-    public String toString() {
-        return getClass() + " {" +
-                "length=" + length +
-                ", height=" + height +
-                ", wingSpan=" + wingSpan +
-                ", maxTakeoffWeight=" + maxTakeoffWeight +
-                ", emptyWeight=" + emptyWeight +
-                ", fuelCapacity=" + fuelCapacity +
-                ", fuelConsumption=" + fuelConsumption +
-                ", fuelWeight=" + fuelWeight +
-                "}";
-    }
-
 
 }

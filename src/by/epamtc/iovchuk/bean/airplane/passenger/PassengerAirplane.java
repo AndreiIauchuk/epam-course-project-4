@@ -3,21 +3,21 @@ package by.epamtc.iovchuk.bean.airplane.passenger;
 import by.epamtc.iovchuk.bean.airplane.Airplane;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class PassengerAirplane extends Airplane implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private final short passengerCapacity;
-    private final List<AirplaneClass> airplaneClasses;
+    private final Set<AirplaneClass> airplaneClasses;
 
     public PassengerAirplane(int id, double length, double height, double wingSpan,
                              double maxTakeoffWeight, double emptyWeight,
                              double fuelCapacity, double fuelConsumption,
                              double fuelWeight, short passengerCapacity,
-                             List<AirplaneClass> airplaneClasses) {
+                             Set<AirplaneClass> airplaneClasses) {
 
         super(id, length, height, wingSpan, maxTakeoffWeight, emptyWeight, fuelCapacity,
                 fuelConsumption, fuelWeight);
@@ -29,7 +29,7 @@ public class PassengerAirplane extends Airplane implements Serializable {
         return passengerCapacity;
     }
 
-    public List<AirplaneClass> getAirplaneClasses() {
+    public Set<AirplaneClass> getAirplaneClasses() {
         return airplaneClasses;
     }
 
@@ -54,8 +54,9 @@ public class PassengerAirplane extends Airplane implements Serializable {
 
     @Override
     public String toString() {
-        return getClass() +
-                "passengerCapacity=" + passengerCapacity +
+        return getClass().getSimpleName() + "{ " +
+                "id=" + getId() +
+                ", passengerCapacity=" + passengerCapacity +
                 ", airplaneClasses=" + airplaneClasses +
                 ", length=" + getLength() +
                 ", height=" + getHeight() +
