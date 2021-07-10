@@ -8,35 +8,48 @@ import java.util.Iterator;
 public class AirplaneSearchService {
 
     private Airline airline;
-    private double fuelConsumption;
+    private double minFuelConsumption;
+    private double maxFuelConsumption;
 
     /**
-     * Search an airplane by its fuel consumption.
+     * Find an airplane in the airline than match a given range of fuel consumption.
      *
      * <p> Return null if no airplane was found. </p>
      */
-    public Airplane searchByFuelConsumption(Airline airline, double fuelConsumption) {
-        if (airline == null && fuelConsumption <= 0) {
+    public Airplane searchByFuelConsumption(Airline airline, double minFuelConsumption, double maxFuelConsumption) {
+        if (airline == null
+                && minFuelConsumption <= 0
+                && maxFuelConsumption <= 0
+                && minFuelConsumption > maxFuelConsumption) {
             return null;
         }
 
         this.airline = airline;
-        this.fuelConsumption = fuelConsumption;
+        this.minFuelConsumption = minFuelConsumption;
+        this.maxFuelConsumption = maxFuelConsumption;
 
-        return searchInAllAirplanes();
+        return searchInAirplanes();
     }
 
-    private Airplane searchInAllAirplanes() {
-        Iterator<Airplane> allAirplanesIterator = airline.allAirplanesIterator();
-        while (allAirplanesIterator.hasNext()) {
-            Airplane airplane = allAirplanesIterator.next();
-
-            if (Double.compare(airplane.getFuelConsumption(), fuelConsumption) == 1) {
+    private Airplane searchInAirplanes() {
+        Iterator<Airplane> airplaneIterator = airline.airplanesIterator();
+        while (airplaneIterator.hasNext()) {
+            Airplane airplane = airplaneIterator.next();
+            if (compareWithMinFuelConsumption(airplane)
+                    && compareWithMaxFuelConsumption(airplane)) {
                 return airplane;
             }
-
         }
-
         return null;
+    }
+
+    private boolean compareWithMinFuelConsumption(Airplane airplane) {
+        return Double.compare(
+                airplane.getFuelConsumption(), minFuelConsumption) >= 0;
+    }
+
+    private boolean compareWithMaxFuelConsumption(Airplane airplane) {
+        return Double.compare(
+                airplane.getFuelConsumption(), maxFuelConsumption) <= 0;
     }
 }

@@ -1,7 +1,5 @@
 package by.epamtc.iovchuk.exception;
 
-import java.security.PrivilegedActionException;
-
 public class NullException extends Exception {
 
     public NullException() {
@@ -19,4 +17,5 @@ public class NullException extends Exception {
     public NullException(Throwable cause) {
         super(cause);
     }
+
 }

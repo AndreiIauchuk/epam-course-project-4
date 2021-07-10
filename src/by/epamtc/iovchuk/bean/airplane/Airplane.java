@@ -2,14 +2,15 @@ package by.epamtc.iovchuk.bean.airplane;
 
 abstract public class Airplane {
 
-    private final double length;
-    private final double height;
-    private final double wingSpan;
-    private final double maxTakeoffWeight;
-    private final double emptyWeight;
-    private final double fuelCapacity;
-    private final double fuelConsumption;
-    private double fuelWeight;
+     private final double length;
+     private final double height;
+     private final double wingSpan;
+     private final double maxTakeoffWeight;
+     private final double emptyWeight;
+     private final double fuelCapacity;
+     private final double fuelConsumption;
+
+     private double fuelWeight;
 
     public Airplane(double length, double height, double wingSpan, double maxTakeoffWeight,
                     double emptyWeight, double fuelCapacity, double fuelConsumption) {
@@ -105,6 +106,6 @@ abstract public class Airplane {
                 ", fuelCapacity=" + fuelCapacity +
                 ", fuelConsumption=" + fuelConsumption +
                 ", fuelWeight=" + fuelWeight +
-                '}';
+                "}";
     }
 }

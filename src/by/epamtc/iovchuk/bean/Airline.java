@@ -1,127 +1,92 @@
 package by.epamtc.iovchuk.bean;
 
 import by.epamtc.iovchuk.bean.airplane.Airplane;
-import by.epamtc.iovchuk.bean.airplane.passanger.PassengerAirplane;
+import by.epamtc.iovchuk.bean.airplane.passenger.PassengerAirplane;
 import by.epamtc.iovchuk.bean.airplane.transport.TransportAirplane;
 import by.epamtc.iovchuk.exception.NullException;
+import by.epamtc.iovchuk.service.sort.AirplaneSortService;
 
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class Airline {
 
-    private Set<PassengerAirplane> passengerAirplanes;
+    private final List<Airplane> airplanes;
 
-    private Set<TransportAirplane> transportAirplanes;
+    public Airline(List<Airplane> airplanes) {
+        this.airplanes = airplanes;
+    }
 
     /**
-     * Adds a given passenger airplane to the set of passenger airplanes.
+     * Adds a given airplane to the list of airplanes.
      *
-     * @param passengerAirplane passenger airplane to be added
-     * @return true if the passenger airplane added to a set
-     * @throws NullException if the passenger airplane is null
+     * @param airplane passenger airplane to be added
+     * @return true if the airplane added to a list
+     * @throws NullException if the airplane is null
      */
-    public boolean addAirplane(PassengerAirplane passengerAirplane) throws NullException {
-        nullCheck(passengerAirplane);
-        return passengerAirplanes.add(passengerAirplane);
+    public boolean addAirplane(Airplane airplane) throws NullException {
+        if (checkNull(airplane)) {
+            throw new NullException();
+        }
+        return airplanes.add(airplane);
     }
 
     /**
-     * A version of addAirplane used to add a transport airplane to a set.
-     */
-    public boolean addAirplane(TransportAirplane transportAirplane) throws NullException {
-        nullCheck(transportAirplane);
-        return transportAirplanes.add(transportAirplane);
-    }
-
-    /**
-     * Removes a given passenger airplane from the set of passenger airplanes.
-     * Return false if the given passenger airplane is null.
+     * Removes a given airplane from the list of airplanes.
+     * Return false if the given airplane is null.
      *
-     * @param passengerAirplane passenger airplane to be removed
-     * @return true if the passenger airplane removed from a set
+     * @param airplane airplane to be removed
+     * @return true if the airplane removed from a list
      */
-    public boolean removeAirplane(PassengerAirplane passengerAirplane) {
-        if (passengerAirplane == null) {
-            return false;
+    public boolean removeAirplane(Airplane airplane) throws NullException {
+        if (checkNull(airplane)) {
+            throw new NullException();
         }
+        return airplanes.remove(airplane);
+    }
 
-        return passengerAirplanes.remove(passengerAirplane);
+    public void sortAirplanes(Comparator<Airplane> comparator) {
+        new AirplaneSortService().quickSort(airplanes, comparator);
     }
 
     /**
-     * A version of removeAirplane used to remove a transport airplane from a set.
+     * Returns an iterator over airplanes list.
      */
-    public boolean removeAirplane(TransportAirplane transportAirplane) {
-        if (transportAirplane == null) {
-            return false;
-        }
-
-        return transportAirplanes.remove(transportAirplane);
+    public Iterator<Airplane> airplanesIterator() {
+        return airplanes.iterator();
     }
 
     /**
-     * Calculate the total passenger capacity of all passenger aircraft.
-     *
-     * @return total passenger capacity
-     */
-    public int calculateTotalCapacity() {
-        int totalPassengerCapacity = 0;
-
-        for (PassengerAirplane airplane : passengerAirplanes) {
-            totalPassengerCapacity += airplane.getPassengerCapacity();
-        }
-
-        return totalPassengerCapacity;
-    }
-
-    /**
-     * Calculate the total lifting capacity of all transport aircraft.
-     *
-     * @return total lifting capacity
-     */
-    public double calculateTotalLiftingCapacity() {
-        double totalLiftingCapacity = 0;
-
-        for (TransportAirplane airplane : transportAirplanes) {
-            totalLiftingCapacity += airplane.getMaxLiftingCapacity();
-        }
-
-        return totalLiftingCapacity;
-    }
-
-    /**
-     * Returns an iterator over the passenger airplanes set.
+     * Returns an iterator over passenger airplanes list.
      */
     public Iterator<PassengerAirplane> passengerAirplanesIterator() {
+        List<PassengerAirplane> passengerAirplanes = new ArrayList<>();
+        for (Airplane airplane : airplanes) {
+            if (airplane instanceof PassengerAirplane) {
+                passengerAirplanes.add((PassengerAirplane) airplane);
+            }
+        }
         return passengerAirplanes.iterator();
     }
 
     /**
-     * Returns an iterator over the transport airplanes set.
+     * Returns an iterator over transport airplanes list.
      */
     public Iterator<TransportAirplane> transportAirplanesIterator() {
+        List<TransportAirplane> transportAirplanes = new ArrayList<>();
+        for (Airplane airplane : airplanes) {
+            if (airplane instanceof TransportAirplane) {
+                transportAirplanes.add((TransportAirplane) airplane);
+            }
+        }
         return transportAirplanes.iterator();
-    }
-
-    /**
-     * Returns an iterator over all airplanes set.
-     */
-    public Iterator<Airplane> allAirplanesIterator() {
-        Set<Airplane> allAirplanes = new HashSet<>(passengerAirplanes);
-        allAirplanes.addAll(transportAirplanes);
-        return  allAirplanes.iterator();
     }
 
     /**
      * Checks if the given airplane is not null. If null throws NullException.
      */
-    private void nullCheck(Airplane airplane) throws NullException {
-        if (airplane == null) {
-            throw new NullException("Airplane");
-        }
+    private boolean checkNull(Airplane airplane) {
+        return (airplane == null);
     }
 
 }

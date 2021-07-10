@@ -1,5 +1,6 @@
 package by.epamtc.iovchuk;
 
+
 /**
  * <strong>Авиакомпания.</strong>
  * <br>
@@ -20,4 +21,7 @@ package by.epamtc.iovchuk;
  * Должна присутствовать обработка некорректных данных инициализации объекта
  */
 public class Main {
+
+    public static void main(String[] args) {
+        }
 }

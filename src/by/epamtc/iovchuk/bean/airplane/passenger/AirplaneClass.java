@@ -1,4 +1,4 @@
-package by.epamtc.iovchuk.bean.airplane.passanger;
+package by.epamtc.iovchuk.bean.airplane.passenger;
 
 public enum AirplaneClass {
     ECONOMY,
