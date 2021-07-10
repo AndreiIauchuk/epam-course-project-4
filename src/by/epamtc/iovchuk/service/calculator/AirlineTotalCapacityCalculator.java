@@ -44,4 +44,5 @@ public class AirlineTotalCapacityCalculator {
         }
         return totalLiftingCapacity;
     }
+
 }

@@ -16,28 +16,27 @@ public class AirplaneFileDao implements Dao<Airplane> {
     private File file;
     private Scanner scanner;
 
-    public AirplaneFileDao(String filePath) throws FileNotFoundException {
+    public AirplaneFileDao(String filePath) {
         this.filePath = filePath;
         file = new File(filePath);
-        createFileScanner();
-    }
-
-    private void createFileScanner() throws FileNotFoundException {
-        scanner = new Scanner(file);
-        scanner.useDelimiter("\n");
     }
 
     @Override
     public List<Airplane> getAll() {
+        try {
+            scanner = new Scanner(new File(filePath));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         List<Airplane> airplanes = new ArrayList<>();
         while (scanner.hasNextLine()) {
-            Airplane airplane = readAirplane();
+            String[] airplaneParams = readAirplaneParams();
+            Airplane airplane = parseAirplaneParams(airplaneParams);
             if (airplane == null) {
                 continue;
             }
             airplanes.add(airplane);
         }
-        scanner.reset();
         return airplanes;
     }
 
@@ -50,6 +49,11 @@ public class AirplaneFileDao implements Dao<Airplane> {
 
     @Override
     public Airplane getOne(int id) {
+        try {
+            scanner = new Scanner(new File(filePath));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         while (scanner.hasNextLine()) {
             String[] airplaneParams = readAirplaneParams();
             if (airplaneParams == null) {
@@ -58,14 +62,21 @@ public class AirplaneFileDao implements Dao<Airplane> {
             int fileAirplaneId = Integer.parseInt(airplaneParams[1].trim());
 
             if (fileAirplaneId == id) {
-                return readAirplane();
+                return parseAirplaneParams(airplaneParams);
             }
         }
         return null;
     }
 
-    private Airplane readAirplane() {
-        String[] airplaneParams = readAirplaneParams();
+    private String[] readAirplaneParams() {
+        String airplaneParamLine = scanner.nextLine();
+        if (airplaneParamLine.isEmpty()) {
+            return null;
+        }
+        return airplaneParamLine.split(",");
+    }
+
+    private Airplane parseAirplaneParams(String[] airplaneParams) {
         if (airplaneParams == null) {
             return null;
         }
@@ -96,14 +107,6 @@ public class AirplaneFileDao implements Dao<Airplane> {
                     emptyWeight, fuelCapacity, fuelConsumption, fuelWeight, cargoWeight,
                     maxLiftingCapacity);
         }
-    }
-
-    private String[] readAirplaneParams() {
-        String airplaneParamLine = scanner.nextLine();
-        if (airplaneParamLine.isEmpty()) {
-            return null;
-        }
-        return airplaneParamLine.split(",");
     }
 
     private Set<AirplaneClass> readPassengerAirplaneClasses(String classesParamStr) {

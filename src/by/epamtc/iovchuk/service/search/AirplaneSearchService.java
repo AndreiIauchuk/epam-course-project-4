@@ -52,4 +52,5 @@ public class AirplaneSearchService {
         return Double.compare(
                 airplane.getFuelConsumption(), maxFuelConsumption) <= 0;
     }
+
 }

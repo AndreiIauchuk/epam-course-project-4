@@ -61,8 +61,6 @@ public class TransportAirplane extends Airplane implements Serializable {
     public String toString() {
         return getClass().getSimpleName() + "{ " +
                 "id=" + getId() +
-                ", cargoWeight=" + cargoWeight +
-                ", maxLiftingCapacity=" + maxLiftingCapacity +
                 ", length=" + getLength() +
                 ", height=" + getHeight() +
                 ", wingSpan=" + getWingSpan() +
@@ -71,6 +69,9 @@ public class TransportAirplane extends Airplane implements Serializable {
                 ", fuelCapacity=" + getFuelCapacity() +
                 ", fuelConsumption=" + getFuelConsumption() +
                 ", fuelWeight=" + getFuelWeight() +
+                ", cargoWeight=" + cargoWeight +
+                ", maxLiftingCapacity=" + maxLiftingCapacity +
                 "}";
     }
+
 }

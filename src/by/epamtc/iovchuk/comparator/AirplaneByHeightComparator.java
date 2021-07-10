@@ -12,7 +12,7 @@ public class AirplaneByHeightComparator
 
     @Override
     public int compare(Airplane airplane1, Airplane airplane2) {
-        return Double.compare(airplane1.getHeight(), airplane2.getFuelWeight());
+        return Double.compare(airplane1.getHeight(), airplane2.getHeight());
     }
 
 }

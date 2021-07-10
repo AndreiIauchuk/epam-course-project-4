@@ -56,8 +56,6 @@ public class PassengerAirplane extends Airplane implements Serializable {
     public String toString() {
         return getClass().getSimpleName() + "{ " +
                 "id=" + getId() +
-                ", passengerCapacity=" + passengerCapacity +
-                ", airplaneClasses=" + airplaneClasses +
                 ", length=" + getLength() +
                 ", height=" + getHeight() +
                 ", wingSpan=" + getWingSpan() +
@@ -66,6 +64,9 @@ public class PassengerAirplane extends Airplane implements Serializable {
                 ", fuelCapacity=" + getFuelCapacity() +
                 ", fuelConsumption=" + getFuelConsumption() +
                 ", fuelWeight=" + getFuelWeight() +
+                ", passengerCapacity=" + passengerCapacity +
+                ", airplaneClasses=" + airplaneClasses +
                 "}";
     }
+
 }

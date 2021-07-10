@@ -10,6 +10,7 @@ import java.util.List;
 
 public class AirplaneSortServiceImpl implements SortService<Airplane> {
 
+
     public void sort(List<Airplane> airplanes, Comparator<Airplane> comparator) {
         if (checkNull(airplanes)
                 || checkBlank(airplanes)
@@ -33,7 +34,7 @@ public class AirplaneSortServiceImpl implements SortService<Airplane> {
                                   Comparator<Airplane> comparator)
             throws OutOfBoundsException, FirstOverLastIndexException {
 
-        Airplane pivotValue = airplanes.get(0);
+        Airplane pivotValue = airplanes.get(firstElementIndex);
         int leftIndex = firstElementIndex;
         int rightIndex = lastElementIndex;
 
@@ -111,7 +112,8 @@ public class AirplaneSortServiceImpl implements SortService<Airplane> {
     }
 
     private boolean checkOutOfBounds(Collection<Airplane> airplanes, int index) {
-        return (airplanes.size() - 1 >= index);
+        return (index >= airplanes.size()
+                || index < 0);
     }
 
 }

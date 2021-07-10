@@ -5,48 +5,48 @@ import java.util.Comparator;
 
 public class AirplaneComparatorBuilder {
 
-    private final Comparator<Airplane> comparator;
+    private Comparator<Airplane> comparator;
 
     public AirplaneComparatorBuilder(Comparator<Airplane> comparator) {
         this.comparator = comparator;
     }
 
-    public Comparator<? extends Airplane> build() {
+    public Comparator<Airplane> build() {
         return comparator;
     }
 
     public AirplaneComparatorBuilder compareByEmptyWeight() {
-        comparator.thenComparing(new AirplaneByEmptyWeightComparator());
+        comparator = comparator.thenComparing(new AirplaneByEmptyWeightComparator());
         return this;
     }
 
     public AirplaneComparatorBuilder compareByFuelCapacity() {
-        comparator.thenComparing(new AirplaneByFuelCapacityComparator());
+        comparator = comparator.thenComparing(new AirplaneByFuelCapacityComparator());
         return this;
     }
 
     public AirplaneComparatorBuilder compareByFuelConsumption() {
-        comparator.thenComparing(new AirplaneByFuelConsumptionComparator());
+        comparator = comparator.thenComparing(new AirplaneByFuelConsumptionComparator());
         return this;
     }
 
     public AirplaneComparatorBuilder compareByHeight() {
-        comparator.thenComparing(new AirplaneByHeightComparator());
+        comparator = comparator.thenComparing(new AirplaneByHeightComparator());
         return this;
     }
 
     public AirplaneComparatorBuilder compareByLength() {
-        comparator.thenComparing(new AirplaneByLengthComparator());
+        comparator = comparator.thenComparing(new AirplaneByLengthComparator());
         return this;
     }
 
     public AirplaneComparatorBuilder compareByMaxTakeoffWeight() {
-        comparator.thenComparing(new AirplaneByMaxTakeoffWeightComparator());
+        comparator = comparator.thenComparing(new AirplaneByMaxTakeoffWeightComparator());
         return this;
     }
 
     public AirplaneComparatorBuilder compareByWingSpan() {
-        comparator.thenComparing(new AirplaneByWingSpanComparator());
+        comparator = comparator.thenComparing(new AirplaneByWingSpanComparator());
         return this;
     }
 

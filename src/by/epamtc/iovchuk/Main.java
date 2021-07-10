@@ -3,12 +3,16 @@ package by.epamtc.iovchuk;
 
 import by.epamtc.iovchuk.bean.Airline;
 import by.epamtc.iovchuk.bean.airplane.Airplane;
+import by.epamtc.iovchuk.comparator.AirplaneByLengthComparator;
+import by.epamtc.iovchuk.comparator.AirplaneComparatorBuilder;
 import by.epamtc.iovchuk.dao.AirplaneFileDao;
 import by.epamtc.iovchuk.dao.Dao;
 import by.epamtc.iovchuk.exception.NullException;
 import by.epamtc.iovchuk.service.calculator.AirlineTotalCapacityCalculator;
+import by.epamtc.iovchuk.service.search.AirplaneSearchService;
+import by.epamtc.iovchuk.service.sort.AirplaneSortServiceImpl;
 
-import java.io.FileNotFoundException;
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -32,29 +36,88 @@ import java.util.Iterator;
  */
 public class Main {
 
+    private static Airline airline;
+    private static Dao<Airplane> airplaneDao;
+
     public static void main(String[] args) {
-        Airline airline = new Airline();
-        Dao<Airplane> airplaneDao = null;
+        airline = new Airline();
+
+        fillAirlineFromFile();
+        printTotalPassengerCapacity();
+        printTotalLiftingCapacity();
+        printAirplaneByFuelConsumption();
+
+        printFindByDaoOneAirplane();
+
+        printAllAirplanes();
+        sortAirplanes();
+        System.out.println("ОТСОРТИРОВАННЫЙ МАССИВ:");
+        printAllAirplanes();
+    }
+
+    private static void fillAirlineFromFile() {
+        airplaneDao = new AirplaneFileDao("M:\\Airplanes.txt");
 
         try {
-            airplaneDao = new AirplaneFileDao("M:\\Airplanes.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            assert airplaneDao != null;
             airline.addAirplanes(airplaneDao.getAll());
         } catch (NullException e) {
             e.printStackTrace();
         }
+    }
 
+    private static void printTotalPassengerCapacity() {
+        double totalPassengerCapacity =
+                new AirlineTotalCapacityCalculator()
+                        .calculateTotalPassengerCapacity(airline);
+
+        System.out.println("Общая вместимость самолетов авиакомпании = " +
+                totalPassengerCapacity);
+    }
+
+    private static void printTotalLiftingCapacity() {
+        double totalLiftingCapacity =
+                new AirlineTotalCapacityCalculator()
+                        .calculateTotalLiftingCapacity(airline);
+
+        System.out.println("Общая грузоподъемность самолетов авиакомпании = " +
+                totalLiftingCapacity);
+    }
+
+    private static void printAirplaneByFuelConsumption() {
+        AirplaneSearchService searchService = new AirplaneSearchService();
+        Airplane airplane =
+                searchService
+                        .searchByFuelConsumption(
+                                airline,
+                                19.9,
+                                20.5);
+        System.out.println(airplane);
+    }
+
+    private static void printFindByDaoOneAirplane() {
+        System.out.println(airplaneDao.getOne(4));
+    }
+
+    private static void printAllAirplanes() {
+        System.out.println();
         Iterator<Airplane> iterator = airline.airplanesIterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());
         }
-
-        System.out.println(new AirlineTotalCapacityCalculator().calculateTotalLiftingCapacity(airline));
-        System.out.println(new AirlineTotalCapacityCalculator().calculateTotalPassengerCapacity(airline));
     }
+
+    private static void sortAirplanes() {
+        airline.sortAirplanes(new AirplaneSortServiceImpl(), createComparator());
+    }
+
+    private static Comparator<Airplane> createComparator() {
+        AirplaneComparatorBuilder builder =
+                new AirplaneComparatorBuilder(new AirplaneByLengthComparator());
+
+        return builder
+                .compareByHeight()
+                .compareByWingSpan()
+                .build();
+    }
+
 }
